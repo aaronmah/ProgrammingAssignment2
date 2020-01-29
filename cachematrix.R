@@ -6,24 +6,25 @@
 makeCacheMatrix <- function(x = matrix()) {
 
         #instantiate the matrix to store
-        cache <- matrix()
+        cache <- NULL
         
         #solve it
-        solveMatrix <- function() {
-                solve(x) 
-                x
+        solveMatrix <- function(y) {
+                solve(y) 
         }
         
         #get cache
         getCache <- function() cache
         
+        #get data
+        getData <- function() x
+        
         #setCache
-        setCache <- function(solved) {
-                cache <<- solved 
-                cache
+        setCache <- function(y) {
+                cache <<- solveMatrix(y) 
                 } 
 
-        cache
+        list (solveMatrix=solveMatrix, getCache=getCache, setCache=setCache, getData = getData)
 }
 
 
@@ -39,9 +40,14 @@ cacheSolve <- function(x, ...) {
         
         cache <- x$getCache()
         
-        if(!is.na(cache)) return(cache)
+        if(!is.null(cache)){
+                message("returning cache")
+                return(cache)
+        }
         
-        solved <- x$solveMatrix()
+        data <- x$getData()
+        
+        solved <- x$solveMatrix(data)
         
         x$setCache(solved)
         
