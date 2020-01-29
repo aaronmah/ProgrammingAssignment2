@@ -1,7 +1,10 @@
-## Put comments here that give an overall description of what your
-## functions do
+##Two functions: first one returns list of functions that
+## invert matrix, gets the cache, sets the cache and gets all data
+## the second function uses the first to solve the matrix and store
+## the values
 
 ## Write a short comment describing this function
+##functions to solve matrix, get cache, set cache and get data
 
 makeCacheMatrix <- function(x = matrix()) {
 
@@ -29,14 +32,9 @@ makeCacheMatrix <- function(x = matrix()) {
 
 
 ## Write a short comment describing this function
+## get cache; if not null, return it. if null, solve & store in cache
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
-        #see if there's a value in cache
-        #if there is, return it
-        #if there isn't, call solve function and set it
-        #store in cache
-        #return solve
         
         cache <- x$getCache()
         
@@ -49,33 +47,8 @@ cacheSolve <- function(x, ...) {
         
         solved <- x$solveMatrix(data)
         
-        x$setCache(solved)
+        x$setCache(data)
         
         solved
 }
 
-makeVector <- function(x = numeric()) {
-        m <- NULL
-        set <- function(y) {
-                x <<- y
-                m <<- NULL
-        }
-        get <- function() x
-        setmean <- function(mean) m <<- mean
-        getmean <- function() m
-        list(set = set, get = get,
-             setmean = setmean,
-             getmean = getmean)
-}
-
-cachemean <- function(x, ...) {
-        m <- x$getmean()
-        if(!is.null(m)) {
-                message("getting cached data")
-                return(m)
-        }
-        data <- x$get()
-        m <- mean(data, ...)
-        x$setmean(m)
-        m
-}
